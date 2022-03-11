@@ -11,9 +11,9 @@ var temperature=document.querySelector('.temperature')
 var temperatureK=document.querySelector('.temperature span:last-child')
 var inner=document.querySelector('.inner')
  function changeWeather(data){
-   console.log(data)
-   city.innerText = data.name
-   country.innerText=data.sys.country
+     let cityName=data.name
+     cityName===undefined?alert("Wrong city name, please re-enter.") : city.innerText = data.name
+    country.innerText=data.sys.country
     let temp=value.innerText=Math.floor((data.main.temp-273.15))
     temp>=18?(document.body.className='hot'):(document.body.className='cold')
     shortDesc.innerText=data.weather[0].main
@@ -30,13 +30,17 @@ var inner=document.querySelector('.inner')
     })
     inner.addEventListener('mouseout', e=>{
         value.innerText=Math.floor(data.main.temp-273.15)
-        temperatureK.innerHTML=` <sup>o</sup>
-        C`
+        temperatureK.innerHTML=` 
+        <sup>o</sup>
+        C
+        `
     })
+   
 }
 inputSearch.addEventListener('keydown',function(e){
     if(e.which==13){
         getWeather(e.target.value)
+        inputSearch.value=''
     }
 })
 async function getWeather(input){
